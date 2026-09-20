@@ -71,7 +71,7 @@ export const Navbar: React.FC = () => {
             </a>
 
             {/* Customer Auth / Portal in Top Strip */}
-            {isCustomerAuthenticated ? (
+            {isCustomerAuthenticated && (
               <div className="flex items-center space-x-2 pl-2 border-l border-workshop-700">
                 <button
                   onClick={() => {
@@ -92,14 +92,6 @@ export const Navbar: React.FC = () => {
                   Sign Out
                 </button>
               </div>
-            ) : (
-              <button
-                onClick={() => setIsCustomerAuthModalOpen(true)}
-                className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-200 hover:text-white bg-workshop-800 hover:bg-workshop-700 px-3 py-1 rounded border border-workshop-700 transition-colors pl-2 border-l border-workshop-700"
-              >
-                <LogIn className="w-3.5 h-3.5 text-crimson-500" />
-                <span>Customer Sign In</span>
-              </button>
             )}
 
             {isAdminAuthenticated && (

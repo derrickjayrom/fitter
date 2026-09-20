@@ -7,30 +7,49 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       colors: {
         workshop: {
-          950: '#070A0F',
-          900: '#0B0F17',
-          850: '#0F1522',
-          800: '#151C2C',
-          700: '#1E293B',
-          600: '#334155',
-          500: '#475569',
-          400: '#64748B',
-          300: '#94A3B8',
-          200: '#CBD5E1',
-          100: '#E2E8F0',
-          50: '#F8FAFC',
+          950: '#060B14',
+          900: '#0A1322',
+          850: '#0E1A2C',
+          800: '#132338',
+          700: '#1E3550',
+          600: '#2E4C70',
+          500: '#466791',
+          400: '#6C8DB5',
+          300: '#9DB7D5',
+          200: '#CADAF0',
+          100: '#E7EFF8',
+          50: '#F4F8FC',
         },
+        // Mapped to Sea Blue palette so all existing components seamlessly adopt the Sea Blue theme
         crimson: {
-          900: '#7F1D1D',
-          800: '#991B1B',
-          700: '#B91C1C',
-          600: '#DC2626',
-          500: '#EF4444',
-          400: '#F87171',
+          950: '#04223d',
+          900: '#083358',
+          800: '#0c4a6e',
+          700: '#0369a1',
+          600: '#0284c7', // Primary Sea Blue
+          500: '#0ea5e9', // Vibrant Sea Blue / Accent
+          400: '#38bdf8', // Light Sea Blue / Text highlights
+          300: '#7dd3fc',
+          200: '#bae6fd',
+          100: '#e0f2fe',
+          50: '#f0f9ff',
+        },
+        seablue: {
+          950: '#04223d',
+          900: '#083358',
+          800: '#0c4a6e',
+          700: '#0369a1',
+          600: '#0284c7',
+          500: '#0ea5e9',
+          400: '#38bdf8',
+          300: '#7dd3fc',
+          200: '#bae6fd',
+          100: '#e0f2fe',
+          50: '#f0f9ff',
         },
         amber: {
           500: '#F59E0B',
