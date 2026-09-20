@@ -16,7 +16,6 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { id: 'home', label: 'Home' },
     { id: 'services', label: 'Services' },
     { id: 'about', label: 'About Us' },
     { id: 'fleet', label: 'Fleet Services' },
@@ -26,8 +25,8 @@ export const Navbar: React.FC = () => {
     { id: 'contact', label: 'Contact' },
   ] as const;
 
-  const handleNavClick = (pageId: typeof navItems[number]['id']) => {
-    setCurrentPage(pageId);
+  const handleNavClick = (pageId: string) => {
+    setCurrentPage(pageId as any);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -108,82 +107,81 @@ export const Navbar: React.FC = () => {
       </div>
 
       {/* Main Full-Width Navigation Bar */}
-      <div className="w-full px-6 lg:px-12 py-3.5">
+      <div className="w-full max-w-[1560px] mx-auto px-6 lg:px-12 py-3.5">
         <div className="flex items-center justify-between gap-6">
           {/* Brand Wordmark & Logo */}
           <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center space-x-3.5 text-left group shrink-0 focus:outline-none"
+            className="flex items-center space-x-2.5 text-left group shrink-0 focus:outline-none"
           >
-            <div className="w-11 h-11 rounded bg-gradient-to-br from-crimson-600 to-crimson-800 flex items-center justify-center text-white shadow-md border border-crimson-500/30 group-hover:bg-crimson-600 transition-colors">
-              <Wrench className="w-6 h-6 -rotate-45" />
+            <div className="w-8 h-8 rounded bg-gradient-to-br from-crimson-600 to-crimson-800 flex items-center justify-center text-white shadow-sm border border-crimson-500/30 group-hover:bg-crimson-600 transition-colors">
+              <Wrench className="w-4 h-4 -rotate-45" />
             </div>
-            <div>
-              <div className="text-2xl font-black tracking-tight text-white flex items-center">
-                <span>TORQUE</span>
-                <span className="text-crimson-500">WORKS</span>
-                <span className="text-xs ml-2 uppercase font-bold text-workshop-400 tracking-wider">Auto</span>
-              </div>
-              <p className="text-xs uppercase tracking-widest text-workshop-400 font-semibold">
-                Diagnostics. Repairs. Done Right.
-              </p>
+            <div className="flex items-baseline space-x-1.5">
+              <span className="text-lg sm:text-xl font-black tracking-tight text-white">
+                TORQUE<span className="text-crimson-500">WORKS</span>
+              </span>
+              <span className="text-[10px] uppercase font-bold text-workshop-400 tracking-wider">Auto</span>
             </div>
           </button>
 
-          {/* Desktop Extended Navigation Tabs */}
-          <nav className="hidden lg:flex flex-1 items-center justify-evenly px-4 xl:px-8">
-            {navItems.map(item => {
-              const isActive = currentPage === item.id;
-              return (
+          {/* Right Group: Navigation Tabs + CTAs (Matching GiftyBMS arrangement) */}
+          <div className="hidden lg:flex items-center space-x-1 xl:space-x-3">
+            <nav className="flex items-center space-x-1">
+              {navItems.map(item => {
+                const isActive = currentPage === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id)}
+                    className={`px-3 py-2 text-sm font-medium transition-all rounded-md ${
+                      isActive
+                        ? 'text-white bg-workshop-800 text-crimson-400 font-semibold shadow-sm'
+                        : 'text-workshop-300 hover:text-white hover:bg-workshop-800/60'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
+
+            {/* CTAs right next to navigation tabs */}
+            <div className="flex items-center space-x-2 pl-2 border-l border-workshop-800/80">
+              {isCustomerAuthenticated ? (
                 <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`px-4 py-2.5 text-base font-semibold tracking-wide transition-all rounded ${
-                    isActive
-                      ? 'text-white bg-workshop-900 border-b-2 border-crimson-500 shadow-sm'
-                      : 'text-workshop-300 hover:text-white hover:bg-workshop-900/60'
+                  onClick={() => {
+                    setCurrentPage('my-bookings');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className={`inline-flex items-center px-3.5 py-2 text-sm font-semibold rounded-md border transition-colors ${
+                    currentPage === 'my-bookings'
+                      ? 'bg-crimson-900/60 border-crimson-500 text-white'
+                      : 'bg-workshop-900 hover:bg-workshop-800 text-slate-100 border-workshop-700'
                   }`}
                 >
-                  {item.label}
+                  <CalendarCheck className="w-4 h-4 mr-1.5 text-crimson-500" />
+                  <span>My Bookings</span>
                 </button>
-              );
-            })}
-          </nav>
+              ) : (
+                <button
+                  onClick={() => setIsCustomerAuthModalOpen(true)}
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-workshop-800/60 rounded-md transition-colors"
+                >
+                  <User className="w-4 h-4 mr-1.5 text-crimson-400" />
+                  Sign In
+                </button>
+              )}
 
-          {/* Action CTAs (Desktop) */}
-          <div className="hidden lg:flex items-center space-x-3.5 shrink-0">
-            {isCustomerAuthenticated ? (
               <button
-                onClick={() => {
-                  setCurrentPage('my-bookings');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={`inline-flex items-center px-4 py-2.5 text-sm font-bold rounded border transition-colors ${
-                  currentPage === 'my-bookings'
-                    ? 'bg-crimson-900/60 border-crimson-500 text-white'
-                    : 'bg-workshop-900 hover:bg-workshop-800 text-slate-100 border-workshop-700'
-                }`}
+                onClick={handleBookClick}
+                className="group inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-crimson-600 hover:bg-crimson-700 active:bg-crimson-800 rounded-md shadow-sm transition-all hover:shadow-md"
               >
-                <CalendarCheck className="w-4 h-4 mr-2 text-crimson-500" />
-                <span>My Bookings</span>
+                <Calendar className="w-4 h-4 mr-1.5" />
+                <span>Book a Service</span>
+                <span className="ml-1.5 font-bold transition-transform group-hover:translate-x-0.5">→</span>
               </button>
-            ) : (
-              <button
-                onClick={() => setIsCustomerAuthModalOpen(true)}
-                className="inline-flex items-center px-4 py-2.5 text-sm font-semibold text-slate-200 hover:text-white bg-workshop-900 hover:bg-workshop-800 border border-workshop-700 rounded transition-colors"
-              >
-                <User className="w-4 h-4 mr-2 text-crimson-500" />
-                Sign In
-              </button>
-            )}
-
-            <button
-              onClick={handleBookClick}
-              className="inline-flex items-center px-5 py-2.5 text-sm font-bold text-white bg-crimson-600 hover:bg-crimson-700 active:bg-crimson-800 rounded shadow-sm transition-colors uppercase tracking-wider"
-            >
-              <Calendar className="w-4 h-4 mr-2" />
-              Book a Service
-            </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
